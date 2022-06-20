@@ -11,4 +11,7 @@ public class HomeController {
   public String home() {
     return "home";
   }
+  
+  
+  //좀 되라 진짜
 }
