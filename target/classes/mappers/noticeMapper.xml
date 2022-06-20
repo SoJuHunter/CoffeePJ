@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.dw.notice">
+
+	<select id="list" resultType="NoticeDTO">
+		SELECT * FROM notice ORDER BY Nno DESC
+	</select>
+
+	<insert id="insert">
+		INSERT INTO notice
+		(Nno, userId,
+		nTitle,nContent,nWritedate,nUpdatedate)
+		VALUES
+		(seq_notice_Nno.NEXTVAL,
+		#{userId},#{nTitle},#{nContent},SYSDATE,SYSDATE)
+		<selectKey keyProperty="Nno" resultType="Integer"
+			order="AFTER">
+			SELECT seq_notice_Nno.CURRVAL FROM DUAL
+		</selectKey>
+		
+	</insert>
+	<select id="read" resultType="NoticeDTO">
+		SELECT * FROM notice WHERE Nno =
+		#{Nno}
+	</select>
+
+	<delete id="delete">
+		DELETE FROM notice WHERE Nno =#{Nno}
+	</delete>
+	
+	<select id="updateUI" resultType="NoticeDTO">
+		SELECT * FROM notice WHERE Nno = #{Nno}
+	</select>
+
+	<update id="update">
+		UPDATE notcie SET nTitle=#{nTitle}, userID=#{userID}, nContent=#{nContent}, nUpdatedate=SysDate WHERE Nno = #{Nno} 
+	</update>
+
+</mapper>
